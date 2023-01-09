@@ -1,0 +1,26 @@
+main {
+    min-height: calc(100vh - 120px);
+    padding-bottom: 10px;
+}
+
+.all-reviews-container {
+    min-height: 50px;
+    margin: 5px;
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 5px;
+    
+}
+
+.reviews-nav {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px;
+}
+
+.user-message {
+    margin: 20px
+}
+
+.nav-button {
+    cursor: pointer;
+}
