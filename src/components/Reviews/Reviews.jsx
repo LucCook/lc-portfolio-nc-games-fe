@@ -13,6 +13,7 @@ function Reviews() {
   const [limit, setLimit] = useState(5);
 
   useEffect(() => {
+    setLoading(true)
     fetchReviews(limit, page)
       .then((reviews) => {
         setLoading(false);
