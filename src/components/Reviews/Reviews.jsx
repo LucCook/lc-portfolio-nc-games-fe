@@ -34,6 +34,7 @@ function Reviews() {
       <div className="reviews-nav">
         {page > 1 && (
           <div
+            className="nav-button"
             onClick={() => {
               if (page > 1) setPage(page - 1);
             }}
@@ -44,6 +45,7 @@ function Reviews() {
 
         {reviews.length > 0 && (
           <div
+          className="nav-button"
             onClick={() => {
               setPage(page + 1);
             }}
@@ -66,6 +68,7 @@ function Reviews() {
       <div className="reviews-nav">
         {page > 1 && (
           <div
+          className="nav-button"
             onClick={() => {
               if (page > 1) setPage(page - 1);
             }}
@@ -75,6 +78,7 @@ function Reviews() {
         )}
         {reviews.length > 0 && (
           <div
+          className="nav-button"
             onClick={() => {
               setPage(page + 1);
             }}

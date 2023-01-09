@@ -20,3 +20,7 @@ main {
 .user-message {
     margin: 20px
 }
+
+.nav-button {
+    cursor: pointer;
+}
