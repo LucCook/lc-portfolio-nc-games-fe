@@ -19,7 +19,7 @@ function ReviewCard({
     
     
     <div className="review-card">
-      <Votes votes={votes}/>
+      <Votes votes={votes} type="review" id={review_id}/>
       <Link to={`/reviews/${review_id}`} className="review-link">
       <img className="preview-img" src={review_img_url} alt={title} />
       <div className="review-details">

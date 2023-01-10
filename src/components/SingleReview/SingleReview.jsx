@@ -158,7 +158,7 @@ function SingleReview() {
       </div>
       <div className="single-review-container">
         <div className="title-container">
-          <Votes votes={review.votes} />
+          <Votes votes={review.votes} type="review" id={review.review_id}/>
           <div className="review-title-full">{review.title}</div>
         </div>
         <div className="details-container">

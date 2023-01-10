@@ -28,10 +28,18 @@
     transform: rotate(90deg);
 }
 
+.vote-checkbox {
+    display: none;
+}
+
 .down:hover {
     background-color: rgba(158, 80, 80, 0.5);
 }
 
-.vote-checkbox {
-    display: none;
+.vote-checkbox.up:checked ~ label .up {
+    background-color: rgba(80, 158, 80, 0.808);
+}
+
+.vote-checkbox.down:checked ~ label .down {
+    background-color: rgba(158, 80, 80, 0.808);
 }
