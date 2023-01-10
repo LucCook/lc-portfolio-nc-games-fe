@@ -1,6 +1,7 @@
 import "./ReviewCard.css";
 import {Link} from 'react-router-dom'
 import Votes from "../Votes/Votes";
+import formatDate from "../../utils";
 
 function ReviewCard({
     review_id,
@@ -12,9 +13,7 @@ function ReviewCard({
   created_at,
   comment_count,
 }) {
-  const date = new Date(created_at);
-  const fullDateString = date.toUTCString();
-  const dateString = fullDateString.slice(fullDateString.indexOf(" "));
+  const date = formatDate(created_at)
 
   return (
     
@@ -28,7 +27,7 @@ function ReviewCard({
         <div className="review-owner">
           by <span>{owner}</span>
         </div>
-        <div className="review-date">{dateString}</div>
+        <div className="review-date">{date}</div>
         <div className="review-comment-count">{comment_count} comments</div>
       </div>
       </Link>

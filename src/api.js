@@ -17,3 +17,13 @@ export const fetchSingleReview = (review_id) => {
         return data.review
     })
 }
+
+export const fetchComments = (review_id) => {
+    return fetch(`https://lc-portfolio-nc-games.onrender.com/api/reviews/${review_id}/comments`)
+    .then((res) => {
+        return res.json()
+    })
+    .then((data) => {
+        return data.comments
+    })
+}
