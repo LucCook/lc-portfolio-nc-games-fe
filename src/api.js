@@ -31,20 +31,11 @@ export const fetchComments = (review_id) => {
 }
 
 export const patchVote = (type, id, positive) => {
-    console.log('patching...')
     const increment = positive ? 1 : -1
     if (type === 'review') {
-        console.log('patching review!')
         return axios.patch(`https://lc-portfolio-nc-games.onrender.com/api/reviews/${id}`, {inc_votes: increment})
-        .then((res) => {
-            console.log('patch succesful!') 
-        })
     }
     if (type === 'comment') {
-        console.log('patching comment!')
         return axios.patch(`https://lc-portfolio-nc-games.onrender.com/api/comments/${id}`, {inc_votes: increment})
-        .then((res) => {
-            console.log('patch succesful!') 
-        })
     }
 }

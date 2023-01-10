@@ -11,6 +11,7 @@ function CommentCard({votes, created_at, author, body, comment_id}) {
                 <div className="comment-details">
                     <div className="comment-author">{author}</div>
                     <div className="comment-body">{body}</div>
+                    <div>{comment_id}</div>
                     <div className="comment-date">{date}</div>
                 </div>
             </div>)
