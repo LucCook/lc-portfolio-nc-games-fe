@@ -1,8 +1,12 @@
-img {
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.preview-img {
     display: block;
-    max-height: 100px;
     max-width: 100px;
-    height: auto;
+    max-height: 100px;
     width: auto;
     margin: 0px;
     border: 2px solid black;
@@ -11,6 +15,7 @@ img {
 .review-card {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     margin: 0px;
     padding: 5px;
     border-bottom: 2px solid black;
@@ -25,7 +30,7 @@ img {
     margin-left: 10px;   
 }
 
-.review-title {
+.review-title-preview {
     font-weight: bold;
 }
 
@@ -37,34 +42,3 @@ span {
     font-size: 0.9em
 }
 
-.review-votes-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    margin: 10px;
-}
-
-.arrow {
-    height: 25px;
-    border-radius: 50%;
-    border: 0px;
-    background-color: #b5b0a9;
-    transition: all 0.2s ease;
-}
-
-.up {
-    transform: rotate(270deg);
-}
-
-.up:hover {
-    background-color: rgba(80, 158, 80, 0.5);
-}
-
-.down {
-    transform: rotate(90deg);
-}
-
-.down:hover {
-    background-color: rgba(158, 80, 80, 0.5);
-}

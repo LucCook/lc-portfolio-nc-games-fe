@@ -7,3 +7,13 @@ export const fetchReviews = (limit, page) => {
         return data.reviews
     })
 }
+
+export const fetchSingleReview = (review_id) => {
+    return fetch(`https://lc-portfolio-nc-games.onrender.com/api/reviews/${review_id}`)
+    .then((res) => {
+        return res.json()
+    })
+    .then((data) => {
+        return data.review
+    })
+}
