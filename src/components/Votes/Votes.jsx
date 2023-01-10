@@ -30,13 +30,19 @@ useEffect(() => {
 
     return (<div className="review-votes-container">
     <input type="checkbox" id={`upvote${type}${id}`} className="vote-checkbox up" checked={upVoted} onChange={() => {
+      if (downVoted) {
+        setDownVoted(false)
+        patchVote(type, id, true)
+      }
       setUpVoted(!upVoted)
-      if (downVoted) setDownVoted(false)
     }}/>
     <label htmlFor={`upvote${type}${id}`} className="label"><img className="arrow up" src={arrow} alt="up vote" /></label>
     <div>{voteCount}</div>
     <input type="checkbox" id={`downvote${type}${id}`} className="vote-checkbox down" checked={downVoted} onChange={() => {
-      if (upVoted) setUpVoted(false)
+      if (upVoted) {
+        setUpVoted(false)
+        patchVote(type, id, false)
+      }
       setDownVoted(!downVoted)
     }}/>
     <label htmlFor={`downvote${type}${id}`} className="label"><img className="arrow down" src={arrow} alt="down vote" /></label>
