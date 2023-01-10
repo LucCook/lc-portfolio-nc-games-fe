@@ -2,7 +2,9 @@ import "./SingleReview.css";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchSingleReview, fetchReviews } from "../../api";
+import formatDate from "../../utils";
 import Votes from "../Votes/Votes";
+import Comments from "../Comments/Comments";
 import arrow from "../../arrow3.png";
 
 function SingleReview() {
@@ -13,6 +15,9 @@ function SingleReview() {
   const [reviews, setReviews] = useState([]);
   const [prevReviewId, setPrevReviewId] = useState('end');
   const [nextReviewId, setNextReviewId] = useState('end');
+  const [commentsVisible, setCommentsVisible] = useState(false)
+
+  const date = formatDate(review.created_at)
 
   useEffect(() => {
     setLoading(true)
@@ -132,10 +137,6 @@ function SingleReview() {
     return <div>error</div>;
   }
 
-  const date = new Date(review.created_at);
-  const fullDateString = date.toUTCString();
-  const dateString = fullDateString.slice(fullDateString.indexOf(" "));
-
   return (
     <main>
       <div className="nav-container">
@@ -164,7 +165,7 @@ function SingleReview() {
         <div className="details-container">
           category: <strong>{review.category}</strong>
           <br></br>
-          published: <strong>{dateString}</strong>
+          published: <strong>{date}</strong>
           <br></br>
           designer: <strong>{review.designer}</strong>
         </div>
@@ -177,12 +178,18 @@ function SingleReview() {
 
         <div className="review-body">{review.review_body}</div>
         {review.comment_count > 0 && (
-          <button className="comments-button active">
-            Show {review.comment_count} comments
+          <button className="comments-button active" onClick={() => {
+            setCommentsVisible(!commentsVisible)
+          }}>
+            {commentsVisible === false && <div>Show {review.comment_count} comments</div>}
+            {commentsVisible === true && <div>Hide comments</div>}
           </button>
         )}
         {review.comment_count === 0 && (
             <div className="comments-button">No comments to display</div>
+        )}
+        {commentsVisible && (
+          <Comments review_id={review_id}/>
         )}
       </div>
     </main>

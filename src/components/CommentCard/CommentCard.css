@@ -1,0 +1,21 @@
+.comment-card {
+    display: flex;
+    margin: 10px;
+    border: 1px solid #b5b0a9;
+    border-radius: 5px;
+}
+
+.comment-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-date {
+    font-size: 0.9em
+}
