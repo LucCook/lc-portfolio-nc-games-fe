@@ -13,13 +13,13 @@ function Comments({review_id}) {
             setLoading(false)
             setComments(commentsArr)
         })
-    }, [])
+    }, [review_id])
 
     if (loading) return <div>loading...</div>
 
     return (<div className="comments-container">
                 {comments.map((comment) => {
-                    return <CommentCard {...comment}/>
+                    return <CommentCard key={comment.comment_id} {...comment}/>
                 })}
             </div>)
 }

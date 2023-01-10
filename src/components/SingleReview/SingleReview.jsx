@@ -12,7 +12,6 @@ function SingleReview() {
   const [review, setReview] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [reviews, setReviews] = useState([]);
   const [prevReviewId, setPrevReviewId] = useState('end');
   const [nextReviewId, setNextReviewId] = useState('end');
   const [commentsVisible, setCommentsVisible] = useState(false)
@@ -115,7 +114,7 @@ function SingleReview() {
         {prevReviewId && (
           <Link to={`/reviews/${prevReviewId}`}>
             <div className="nav-arrow-container">
-              <img className="arrow left" src={arrow} />
+              <img className="arrow left" src={arrow} alt="previous review"/>
               <div>prev review</div>
             </div>
           </Link>
@@ -124,7 +123,7 @@ function SingleReview() {
           <Link to={`/reviews/${nextReviewId}`}>
             <div className="nav-arrow-container">
               <div>next review</div>
-              <img className="arrow right" src={arrow} />
+              <img className="arrow right" src={arrow} alt="next review"/>
             </div>
           </Link>
         )}
@@ -143,7 +142,7 @@ function SingleReview() {
         {prevReviewId && (
           <Link to={`/reviews/${prevReviewId}`}>
             <div className="nav-arrow-container">
-              <img className="arrow left" src={arrow} />
+              <img className="arrow left" src={arrow} alt="previous review"/>
               <div>prev review</div>
             </div>
           </Link>
@@ -152,7 +151,7 @@ function SingleReview() {
           <Link to={`/reviews/${nextReviewId}`}>
             <div className="nav-arrow-container">
               <div>next review</div>
-              <img className="arrow right" src={arrow} />
+              <img className="arrow right" src={arrow} alt="next review"/>
             </div>
           </Link>
         )}

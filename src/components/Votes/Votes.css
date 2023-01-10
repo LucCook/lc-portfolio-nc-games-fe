@@ -31,3 +31,7 @@
 .down:hover {
     background-color: rgba(158, 80, 80, 0.5);
 }
+
+.vote-checkbox {
+    display: none;
+}
