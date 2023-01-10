@@ -16,6 +16,10 @@
     font-weight: bold;
 }
 
+.comment-body {
+    text-align: left;
+}
+
 .comment-date {
     font-size: 0.9em
 }

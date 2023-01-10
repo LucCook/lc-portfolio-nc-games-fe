@@ -39,7 +39,7 @@ useEffect(() => {
       setVoteError(true)
     })
   }
-}, [upVoted, downVoted])
+}, [upVoted, downVoted, id, setVoteError, type, votes])
 
     return (<div className="review-votes-container">
     <input type="checkbox" id={`upvote${type}${id}`} className="vote-checkbox up" checked={upVoted} onChange={() => {
