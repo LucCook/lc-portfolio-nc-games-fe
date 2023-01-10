@@ -17,8 +17,16 @@ a {
     justify-content: flex-start;
     align-items: center;
     margin: 0px;
-    padding: 5px;
     border-bottom: 2px solid black;
+}
+
+.review-link {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0px;
+    padding: 5px;
+    width: 100%;
 }
 
 .review-details {

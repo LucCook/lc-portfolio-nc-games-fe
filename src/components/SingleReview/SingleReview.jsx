@@ -54,11 +54,6 @@ function SingleReview() {
             ].review_id
           );
         }
-        console.log(
-          reviews[
-            reviews.findIndex((item) => item.review_id === parseInt(review_id))
-          ]
-        );
       })
       .then(() => {
         setLoading(false);
@@ -66,7 +61,6 @@ function SingleReview() {
       .catch((err) => {
         setLoading(false);
         setError(true);
-        console.log(err);
       });
   }, [review_id]);
 
@@ -108,10 +102,6 @@ function SingleReview() {
             setPrevReviewId()
         }
       })
-      .then(() => {
-        console.log(prevReviewId + " prev review id");
-        console.log(nextReviewId + " next review id");
-      });
   }, [review, review_id]);
 
   if (loading) {

@@ -17,10 +17,11 @@ function ReviewCard({
   const dateString = fullDateString.slice(fullDateString.indexOf(" "));
 
   return (
-    <Link to={`/reviews/${review_id}`}>
+    
     
     <div className="review-card">
       <Votes votes={votes}/>
+      <Link to={`/reviews/${review_id}`} className="review-link">
       <img className="preview-img" src={review_img_url} alt={title} />
       <div className="review-details">
         <div className="review-title-preview">{title}</div>
@@ -30,8 +31,9 @@ function ReviewCard({
         <div className="review-date">{dateString}</div>
         <div className="review-comment-count">{comment_count} comments</div>
       </div>
+      </Link>
     </div>
-    </Link>
+    
   );
 }
 
