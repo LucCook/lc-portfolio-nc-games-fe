@@ -13,8 +13,6 @@ const [voteCount, setVoteCount] = useState(votes)
 
 useEffect(() => {
   
-  // console.log(upVoted + ' <<< upVoted')
-  // console.log(downVoted + ' <<< downVoted')
   if (!upVoted && !downVoted) {
     setVoteCount(votes)
   } 
@@ -35,34 +33,41 @@ useEffect(() => {
     .catch((err) => {
       setVoteCount(votes)
       setDownVoted(false)
-      console.log(err)
       setVoteError(true)
     })
   }
 }, [upVoted, downVoted, id, setVoteError, type, votes])
 
+const handleUpVote = () => {
+  if (downVoted) {
+    setDownVoted(false)
+    patchVote(type, id, true)
+  }
+  if (upVoted) {
+    patchVote(type, id, false)
+  }
+  setUpVoted(!upVoted)
+}
+
+const handleDownVote = () => {
+  if (upVoted) {
+    setUpVoted(false)
+    patchVote(type, id, false)
+  }
+  if (downVoted) {
+    patchVote(type, id, true)
+  }
+  setDownVoted(!downVoted)
+}
+
     return (<div className="review-votes-container">
     <input type="checkbox" id={`upvote${type}${id}`} className="vote-checkbox up" checked={upVoted} onChange={() => {
-      if (downVoted) {
-        setDownVoted(false)
-        patchVote(type, id, true)
-      }
-      if (upVoted) {
-        patchVote(type, id, false)
-      }
-      setUpVoted(!upVoted)
+      handleUpVote()
     }}/>
     <label htmlFor={`upvote${type}${id}`} className="label"><img className="arrow up" src={arrow} alt="up vote" /></label>
     <div>{voteCount}</div>
     <input type="checkbox" id={`downvote${type}${id}`} className="vote-checkbox down" checked={downVoted} onChange={() => {
-      if (upVoted) {
-        setUpVoted(false)
-        patchVote(type, id, false)
-      }
-      if (downVoted) {
-        patchVote(type, id, true)
-      }
-      setDownVoted(!downVoted)
+      handleDownVote()
     }}/>
     <label htmlFor={`downvote${type}${id}`} className="label"><img className="arrow down" src={arrow} alt="down vote" /></label>
     
