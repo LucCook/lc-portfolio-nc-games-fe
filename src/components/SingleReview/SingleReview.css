@@ -70,7 +70,7 @@
 .nav-container {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     width: 100vw;
     margin: 10px;
     
@@ -80,8 +80,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: auto;
+    width: 75px;
     cursor: pointer;
+    margin: 0 50px;
 }
 
 .nav-arrow-container:hover .arrow {
