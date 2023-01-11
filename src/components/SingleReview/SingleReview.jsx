@@ -120,6 +120,9 @@ function SingleReview() {
             </div>
           </Link>
         )}
+        <Link to="/reviews">
+          Back to all reviews
+        </Link>
         {(nextReviewId) && (
           <Link to={`/reviews/${nextReviewId}`}>
             <div className="nav-arrow-container">
@@ -148,6 +151,9 @@ function SingleReview() {
             </div>
           </Link>
         )}
+        <Link to="/reviews">
+          Back to all reviews
+        </Link>
         {(nextReviewId) && (
           <Link to={`/reviews/${nextReviewId}`}>
             <div className="nav-arrow-container">

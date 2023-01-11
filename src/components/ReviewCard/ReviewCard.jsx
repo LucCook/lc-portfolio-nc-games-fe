@@ -12,6 +12,7 @@ function ReviewCard({
   votes,
   created_at,
   comment_count,
+  setVoteError
 }) {
   const date = formatDate(created_at)
 
@@ -19,7 +20,7 @@ function ReviewCard({
     
     
     <div className="review-card">
-      <Votes votes={votes} type="review" id={review_id}/>
+      <Votes votes={votes} type="review" id={review_id} setVoteError={setVoteError}/>
       <Link to={`/reviews/${review_id}`} className="review-link">
       <img className="preview-img" src={review_img_url} alt={title} />
       <div className="review-details">
