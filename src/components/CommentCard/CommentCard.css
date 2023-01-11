@@ -1,6 +1,6 @@
 .comment-card {
     display: flex;
-    margin: 10px;
+    margin-bottom: 10px;
     border: 1px solid #b5b0a9;
     border-radius: 5px;
 }

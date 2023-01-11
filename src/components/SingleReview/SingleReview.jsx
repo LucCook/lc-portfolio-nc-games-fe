@@ -5,28 +5,32 @@ import { fetchSingleReview, fetchReviews } from "../../api";
 import formatDate from "../../utils";
 import Votes from "../Votes/Votes";
 import Comments from "../Comments/Comments";
+import CommentAdd from "../CommentAdd/CommentAdd";
 import arrow from "../../arrow3.png";
 
-function SingleReview() {
+function SingleReview({ user }) {
   const { review_id } = useParams();
   const [review, setReview] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [prevReviewId, setPrevReviewId] = useState('end');
-  const [nextReviewId, setNextReviewId] = useState('end');
-  const [commentsVisible, setCommentsVisible] = useState(false)
-  const [voteError, setVoteError] = useState(false)
+  const [prevReviewId, setPrevReviewId] = useState("end");
+  const [nextReviewId, setNextReviewId] = useState("end");
+  const [commentCount, setCommentCount] = useState(0)
+  const [commentsVisible, setCommentsVisible] = useState(false);
+  const [comments, setComments] = useState([])
+  const [voteError, setVoteError] = useState(false);
 
-  const date = formatDate(review.created_at)
+  const date = formatDate(review.created_at);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     fetchSingleReview(review_id)
       .then((review) => {
         setReview(review);
+        setCommentCount(review.comment_count)
       })
       .then(() => {
-        return fetchReviews(1000000000000, 1)
+        return fetchReviews(1000000000000, 1);
       })
       .then((reviews) => {
         if (
@@ -70,70 +74,67 @@ function SingleReview() {
   }, [review_id]);
 
   useEffect(() => {
-    fetchReviews(1000000000000, 1)
-      .then((reviews) => {
-        if (
+    fetchReviews(1000000000000, 1).then((reviews) => {
+      if (
+        reviews[
+          reviews.findIndex((item) => item.review_id === parseInt(review_id)) +
+            1
+        ]
+      ) {
+        setNextReviewId(
           reviews[
             reviews.findIndex(
               (item) => item.review_id === parseInt(review_id)
             ) + 1
-          ]
-        ) {
-          setNextReviewId(
-            reviews[
-              reviews.findIndex(
-                (item) => item.review_id === parseInt(review_id)
-              ) + 1
-            ].review_id
-          );
-        } else {
-            setNextReviewId()
-        }
-        if (
+          ].review_id
+        );
+      } else {
+        setNextReviewId();
+      }
+      if (
+        reviews[
+          reviews.findIndex((item) => item.review_id === parseInt(review_id)) -
+            1
+        ]
+      ) {
+        setPrevReviewId(
           reviews[
             reviews.findIndex(
               (item) => item.review_id === parseInt(review_id)
             ) - 1
-          ]
-        ) {
-          setPrevReviewId(
-            reviews[
-              reviews.findIndex(
-                (item) => item.review_id === parseInt(review_id)
-              ) - 1
-            ].review_id
-          );
-        } else {
-            setPrevReviewId()
-        }
-      })
+          ].review_id
+        );
+      } else {
+        setPrevReviewId();
+      }
+    });
   }, [review, review_id]);
 
   if (loading) {
-    return <main>
+    return (
+      <main>
         <div className="nav-container">
-        {prevReviewId && (
-          <Link to={`/reviews/${prevReviewId}`}>
-            <div className="nav-arrow-container">
-              <img className="arrow left" src={arrow} alt="previous review"/>
-              <div>prev review</div>
-            </div>
-          </Link>
-        )}
-        <Link to="/reviews">
-          Back to all reviews
-        </Link>
-        {(nextReviewId) && (
-          <Link to={`/reviews/${nextReviewId}`}>
-            <div className="nav-arrow-container">
-              <div>next review</div>
-              <img className="arrow right" src={arrow} alt="next review"/>
-            </div>
-          </Link>
-        )}
-      </div>
-            <div className="single-review-container">loading...</div>
-            </main>;
+          {prevReviewId && (
+            <Link to={`/reviews/${prevReviewId}`}>
+              <div className="nav-arrow-container">
+                <img className="arrow left" src={arrow} alt="previous review" />
+                <div>prev review</div>
+              </div>
+            </Link>
+          )}
+          <Link to="/reviews">Back to all reviews</Link>
+          {nextReviewId && (
+            <Link to={`/reviews/${nextReviewId}`}>
+              <div className="nav-arrow-container">
+                <div>next review</div>
+                <img className="arrow right" src={arrow} alt="next review" />
+              </div>
+            </Link>
+          )}
+        </div>
+        <div className="single-review-container">loading...</div>
+      </main>
+    );
   }
 
   if (error) {
@@ -146,27 +147,35 @@ function SingleReview() {
         {prevReviewId && (
           <Link to={`/reviews/${prevReviewId}`}>
             <div className="nav-arrow-container">
-              <img className="arrow left" src={arrow} alt="previous review"/>
+              <img className="arrow left" src={arrow} alt="previous review" />
               <div>prev review</div>
             </div>
           </Link>
         )}
-        <Link to="/reviews">
-          Back to all reviews
-        </Link>
-        {(nextReviewId) && (
+        <Link to="/reviews">Back to all reviews</Link>
+        {nextReviewId && (
           <Link to={`/reviews/${nextReviewId}`}>
             <div className="nav-arrow-container">
               <div>next review</div>
-              <img className="arrow right" src={arrow} alt="next review"/>
+              <img className="arrow right" src={arrow} alt="next review" />
             </div>
           </Link>
         )}
       </div>
       <div className="single-review-container">
-      {voteError && <div className="error-message">Oh dear, something went wrong, please try again later or contact support</div>}
+        {voteError && (
+          <div className="error-message">
+            Oh dear, something went wrong, please try again later or contact
+            support
+          </div>
+        )}
         <div className="title-container">
-          <Votes votes={review.votes} type="review" setVoteError={setVoteError} id={review.review_id}/>
+          <Votes
+            votes={review.votes}
+            type="review"
+            setVoteError={setVoteError}
+            id={review.review_id}
+          />
           <div className="review-title-full">{review.title}</div>
         </div>
         <div className="details-container">
@@ -185,19 +194,23 @@ function SingleReview() {
 
         <div className="review-body">{review.review_body}</div>
         {review.comment_count > 0 && (
-          <button className="comments-button active" onClick={() => {
-            setCommentsVisible(!commentsVisible)
-          }}>
-            {commentsVisible === false && <div>Show {review.comment_count} comments</div>}
+          <button
+            className="comments-button active"
+            onClick={() => {
+              setCommentsVisible(!commentsVisible);
+            }}
+          >
+            {commentsVisible === false && (
+              <div>Show {commentCount} comments</div>
+            )}
             {commentsVisible === true && <div>Hide comments</div>}
           </button>
         )}
         {review.comment_count === 0 && (
-            <div className="comments-button">No comments to display</div>
+          <div className="comments-button">No comments to display</div>
         )}
-        {commentsVisible && (
-          <Comments review_id={review_id}/>
-        )}
+        <CommentAdd reviewId={review_id} user={user} setComments={setComments} setCommentCount={setCommentCount}/>
+        {commentsVisible && <Comments review_id={review_id} comments={comments} setComments={setComments}/>}
       </div>
     </main>
   );

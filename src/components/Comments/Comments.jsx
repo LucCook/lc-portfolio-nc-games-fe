@@ -3,9 +3,8 @@ import { fetchComments } from '../../api'
 import CommentCard from '../CommentCard/CommentCard'
 import './Comments.css'
 
-function Comments({review_id}) {
+function Comments({review_id, comments, setComments}) {
 
-    const [comments, setComments] = useState([])
     const [loading, setLoading] = useState(true)
     const [voteError, setVoteError] = useState(false)
 
@@ -14,7 +13,11 @@ function Comments({review_id}) {
             setLoading(false)
             setComments(commentsArr)
         })
-    }, [review_id])
+    }, [review_id, setComments])
+
+    useEffect(() => {
+        setComments(comments)
+    }, [comments, setComments])
 
     if (loading) return <div>loading...</div>
 
