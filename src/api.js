@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export const fetchReviews = (limit, page) => {
     return fetch(`https://lc-portfolio-nc-games.onrender.com/api/reviews?limit=${limit}&p=${page}`)
     .then((res) => {
@@ -26,4 +28,14 @@ export const fetchComments = (review_id) => {
     .then((data) => {
         return data.comments
     })
+}
+
+export const patchVote = (type, id, positive) => {
+    const increment = positive ? 1 : -1
+    if (type === 'review') {
+        return axios.patch(`https://lc-portfolio-nc-games.onrender.com/api/reviews/${id}`, {inc_votes: increment})
+    }
+    if (type === 'comment') {
+        return axios.patch(`https://lc-portfolio-nc-games.onrender.com/api/comments/${id}`, {inc_votes: increment})
+    }
 }

@@ -28,10 +28,35 @@
     transform: rotate(90deg);
 }
 
+.vote-checkbox {
+    display: none;
+}
+
 .down:hover {
     background-color: rgba(158, 80, 80, 0.5);
 }
 
-.vote-checkbox {
-    display: none;
+.vote-checkbox.up:checked ~ label .up {
+    background-color: rgba(80, 158, 80, 0.808);
+}
+
+.vote-checkbox.down:checked ~ label .down {
+    background-color: rgba(158, 80, 80, 0.808);
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+
+.error-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s;
+    transition: all 1s ease;
+    background-color: rgba(158, 80, 80, 0.808);
+    color: #f5f4f5;
+    width: 100%;
+    height: 40px;
 }

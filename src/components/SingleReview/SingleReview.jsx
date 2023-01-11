@@ -15,6 +15,7 @@ function SingleReview() {
   const [prevReviewId, setPrevReviewId] = useState('end');
   const [nextReviewId, setNextReviewId] = useState('end');
   const [commentsVisible, setCommentsVisible] = useState(false)
+  const [voteError, setVoteError] = useState(false)
 
   const date = formatDate(review.created_at)
 
@@ -119,6 +120,9 @@ function SingleReview() {
             </div>
           </Link>
         )}
+        <Link to="/reviews">
+          Back to all reviews
+        </Link>
         {(nextReviewId) && (
           <Link to={`/reviews/${nextReviewId}`}>
             <div className="nav-arrow-container">
@@ -147,6 +151,9 @@ function SingleReview() {
             </div>
           </Link>
         )}
+        <Link to="/reviews">
+          Back to all reviews
+        </Link>
         {(nextReviewId) && (
           <Link to={`/reviews/${nextReviewId}`}>
             <div className="nav-arrow-container">
@@ -157,8 +164,9 @@ function SingleReview() {
         )}
       </div>
       <div className="single-review-container">
+      {voteError && <div className="error-message">Oh dear, something went wrong, please try again later or contact support</div>}
         <div className="title-container">
-          <Votes votes={review.votes} />
+          <Votes votes={review.votes} type="review" setVoteError={setVoteError} id={review.review_id}/>
           <div className="review-title-full">{review.title}</div>
         </div>
         <div className="details-container">

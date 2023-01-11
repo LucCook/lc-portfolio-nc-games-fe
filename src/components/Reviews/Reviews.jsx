@@ -11,6 +11,7 @@ function Reviews() {
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
+  const [voteError, setVoteError] = useState(false)
 
   useEffect(() => {
     fetchReviews(limit, page)
@@ -119,16 +120,17 @@ function Reviews() {
         )}
       </div>
       <div className="all-reviews-container">
+      {voteError && <div className="error-message">Oh dear, something went wrong, please try again later or contact support</div>}
         {reviews.length === 0 && (
-          <div className="user-message">No reviews :(</div>
+          <div className="user-message">No reviews :</div>
         )}
         {reviews.map((review, index, array) => {
           if (index === array.length - 1) {
             return (
-              <ReviewCard key={review.review_id} {...review} last={true} />
+              <ReviewCard key={review.review_id} {...review} last={true} setVoteError={setVoteError} />
             );
           }
-          return <ReviewCard key={review.review_id} {...review} />;
+          return <ReviewCard key={review.review_id} {...review} setVoteError={setVoteError}/>;
         })}
       </div>
       <div className="reviews-nav">
