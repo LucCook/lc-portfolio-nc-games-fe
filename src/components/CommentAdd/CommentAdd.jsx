@@ -11,10 +11,11 @@ function CommentAdd({reviewId, user, setComments, setCommentCount}) {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (commentBody.trim()) {
-      setComments((currComments) => {return [{ username: user, body: commentBody, votes: 0, created_at: new Date() }, ...currComments]})
+      setComments((currComments) => {return [{ id: new Date(), username: user, body: commentBody, votes: 0, created_at: new Date() }, ...currComments]})
       setCommentCount((currCommentCount) => currCommentCount + 1)
       postComment(commentBody, user, reviewId)
-      .then(() => {
+      .then((postedComment) => {
+        setComments((currComments) => [postedComment, ...currComments.slice(1)])
         setCommentError(false)
         setCommentBody('')
       })
