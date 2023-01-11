@@ -6,6 +6,7 @@ function CommentAdd({reviewId, user, setComments, setCommentCount}) {
   const [commentInputVisible, setCommentInputVisible] = useState(false);
   const [commentBody, setCommentBody] = useState('')
   const [commentError, setCommentError] = useState(false)
+  const [commentInvalid, setCommentInvalid] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -24,6 +25,8 @@ function CommentAdd({reviewId, user, setComments, setCommentCount}) {
         setCommentCount((currCommentCount) => currCommentCount - 1)
         setCommentError(true)
       })
+    } else {
+      setCommentInvalid(true)
     }
   }
 
@@ -38,9 +41,13 @@ function CommentAdd({reviewId, user, setComments, setCommentCount}) {
         Join the conversation, add a comment!
       </button>
       {commentError && (<div className="error-message">Oh dear, something went wrong, please try again later</div>)}
+      {commentInvalid && (<div className="error-message">You need to write a comment before posting!</div>)}
       {commentInputVisible && (
         <form className="comment-input" onSubmit={(e) => {handleSubmit(e)}}>
-          <input className="text-input" type="text" placeholder="What do you think?" value={commentBody} onChange={(e) => setCommentBody(e.target.value)}/>
+          <input className="text-input" type="text" placeholder="What do you think?" value={commentBody} onChange={(e) => {
+            setCommentInvalid(false)
+            setCommentBody(e.target.value)
+            }}/>
           <button className="submit button" onClick={(e) => {handleSubmit(e)}}>Post Comment</button>
         </form>
       )}
