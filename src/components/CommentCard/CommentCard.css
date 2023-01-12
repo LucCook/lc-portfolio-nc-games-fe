@@ -23,3 +23,9 @@
 .comment-date {
     font-size: 0.9em
 }
+
+.comment-delete {
+    font-size: 0.8em;
+    text-decoration: underline;
+    cursor: pointer;
+}

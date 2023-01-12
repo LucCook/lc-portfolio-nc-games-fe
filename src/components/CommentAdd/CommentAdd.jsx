@@ -1,23 +1,28 @@
 import "./CommentAdd.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { postComment } from "../../api";
+import { UserContext } from "../../contexts/User";
 
-function CommentAdd({reviewId, user, setComments, setCommentCount}) {
+function CommentAdd({reviewId, setComments, setCommentCount, setCommentsVisible}) {
   const [commentInputVisible, setCommentInputVisible] = useState(false);
   const [commentBody, setCommentBody] = useState('')
   const [commentError, setCommentError] = useState(false)
   const [commentInvalid, setCommentInvalid] = useState(false)
+
+  const {user} = useContext(UserContext)
+  
 
   let temporaryCommentStorage
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (commentBody.trim()) {
-      setComments((currComments) => {return [{ id: new Date(), username: user, body: commentBody, votes: 0, created_at: new Date() }, ...currComments]})
+      setComments((currComments) => {return [{ id: new Date(), username: user.username, body: commentBody, votes: 0, created_at: new Date() }, ...currComments]})
       temporaryCommentStorage = commentBody
       setCommentBody('')
       setCommentCount((currCommentCount) => currCommentCount + 1)
-      postComment(commentBody, user, reviewId)
+      setCommentsVisible(true)
+      postComment(commentBody, user.username, reviewId)
       .then((postedComment) => {
         setComments((currComments) => [postedComment, ...currComments.slice(1)])
         setCommentError(false)
