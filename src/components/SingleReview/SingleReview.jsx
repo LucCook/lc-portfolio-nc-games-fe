@@ -8,7 +8,7 @@ import Comments from "../Comments/Comments";
 import CommentAdd from "../CommentAdd/CommentAdd";
 import arrow from "../../arrow3.png";
 
-function SingleReview({ user }) {
+function SingleReview() {
   const { review_id } = useParams();
   const [review, setReview] = useState({});
   const [loading, setLoading] = useState(true);
@@ -209,7 +209,7 @@ function SingleReview({ user }) {
         {commentCount === 0 && (
           <div className="comments-button">No comments to display</div>
         )}
-        <CommentAdd reviewId={review_id} user={user} setComments={setComments} setCommentCount={setCommentCount}/>
+        <CommentAdd reviewId={review_id} setComments={setComments} setCommentsVisible={setCommentsVisible} setCommentCount={setCommentCount}/>
         {commentsVisible && <Comments review_id={review_id} comments={comments} setComments={setComments}/>}
       </div>
     </main>

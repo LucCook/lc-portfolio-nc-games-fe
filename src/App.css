@@ -12,3 +12,27 @@ main {
   min-height: calc(100vh - 120px);
   padding-bottom: 10px;
 }
+
+.error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 1s;
+  transition: all 1s ease;
+  background-color: rgba(158, 80, 80, 0.808);
+  color: #f5f4f5;
+  width: 100%;
+  height: 40px;
+}
+
+.confirm-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 1s;
+  transition: all 1s ease;
+  background-color: rgba(80, 158, 80, 0.808);
+  color: #f5f4f5;
+  width: 100%;
+  height: 40px;
+}

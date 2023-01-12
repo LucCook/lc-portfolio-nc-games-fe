@@ -50,3 +50,7 @@ export const postComment = (commentBody, user, reviewId) => {
         return data.comment
     })
 }
+
+export const deleteComment =(comment_id) => {
+    return axios.delete(`https://lc-portfolio-nc-games.onrender.com/api/comments/${comment_id}`)
+}
