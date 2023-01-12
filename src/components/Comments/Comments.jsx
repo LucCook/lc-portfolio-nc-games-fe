@@ -9,15 +9,12 @@ function Comments({review_id, comments, setComments}) {
     const [voteError, setVoteError] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
         fetchComments(review_id).then((commentsArr) => {
             setLoading(false)
             setComments(commentsArr)
         })
     }, [review_id, setComments])
-
-    useEffect(() => {
-        setComments(comments)
-    }, [comments, setComments])
 
     if (loading) return <div>loading...</div>
 
