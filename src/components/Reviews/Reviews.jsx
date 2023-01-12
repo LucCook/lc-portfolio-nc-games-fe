@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { fetchReviews } from "../../api";
 import ReviewCard from "../ReviewCard/ReviewCard";
@@ -12,9 +13,12 @@ function Reviews() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [voteError, setVoteError] = useState(false)
+  const [queries, setQueries] = useSearchParams()
+
+  const categoryQuery = queries.get('category')
 
   useEffect(() => {
-    fetchReviews(limit, page)
+    fetchReviews(limit, page, categoryQuery)
       .then((reviews) => {
         setLoading(false);
         setReviews(reviews);
@@ -24,7 +28,7 @@ function Reviews() {
         setError(true);
         console.log(err);
       });
-  }, [limit, page]);
+  }, [limit, page, categoryQuery]);
 
   if (loading)
     return (
@@ -122,7 +126,7 @@ function Reviews() {
       <div className="all-reviews-container">
       {voteError && <div className="error-message">Oh dear, something went wrong, please try again later or contact support</div>}
         {reviews.length === 0 && (
-          <div className="user-message">No reviews :</div>
+          <div className="user-message">No reviews :(</div>
         )}
         {reviews.map((review, index, array) => {
           if (index === array.length - 1) {

@@ -1,7 +1,11 @@
 import axios from 'axios'
 
-export const fetchReviews = (limit, page) => {
-    return fetch(`https://lc-portfolio-nc-games.onrender.com/api/reviews?limit=${limit}&p=${page}`)
+export const fetchReviews = (limit, page, category) => {
+    let reqString = `https://lc-portfolio-nc-games.onrender.com/api/reviews?limit=${limit}&p=${page}`
+
+    if (category) reqString += `&category=${category}`
+
+    return fetch(reqString)
     .then((res) => {
         return res.json()
     })

@@ -1,13 +1,33 @@
+import {useState, useEffect} from 'react'
+import Dropdown from '../Dropdown/Dropdown.jsx'
+import { fetchCategories } from '../Nav/navapi';
 import './Nav.css'
-import { Link } from 'react-router-dom'
 
 function Nav() {
-    return (<nav>
-        <div>Categories</div>
-        <div>Users</div>
-        <div>Sign in</div>
-        <Link to="/reviews"><div>Recent Reviews</div></Link>
-    </nav>)
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    fetchCategories().then((categoriesArr) => {
+      setLoading(false)
+      setCategories(categoriesArr);
+    })
+  }, []);
+
+  if (loading) return <div>loading</div>
+
+  return (
+    <nav>
+      <Dropdown className="nav-item" label="Categories" items={categories} itemLabel="slug"/>
+      
+      <div className="nav-item">Users</div>
+      
+      <div className="nav-item">Sign in</div>
+      
+      <div className="nav-item">Recent Reviews</div>
+    </nav>
+  );
 }
 
-export default Nav
+export default Nav;
