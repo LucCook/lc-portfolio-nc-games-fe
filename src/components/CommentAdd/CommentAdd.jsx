@@ -8,10 +8,14 @@ function CommentAdd({reviewId, user, setComments, setCommentCount}) {
   const [commentError, setCommentError] = useState(false)
   const [commentInvalid, setCommentInvalid] = useState(false)
 
+  let temporaryCommentStorage
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (commentBody.trim()) {
       setComments((currComments) => {return [{ id: new Date(), username: user, body: commentBody, votes: 0, created_at: new Date() }, ...currComments]})
+      temporaryCommentStorage = commentBody
+      setCommentBody('')
       setCommentCount((currCommentCount) => currCommentCount + 1)
       postComment(commentBody, user, reviewId)
       .then((postedComment) => {
@@ -20,6 +24,8 @@ function CommentAdd({reviewId, user, setComments, setCommentCount}) {
         setCommentBody('')
       })
       .catch((err) => {
+        setCommentBody(temporaryCommentStorage)
+        temporaryCommentStorage = ''
         setComments((currComments) => {
           return currComments.slice(1)
         })
