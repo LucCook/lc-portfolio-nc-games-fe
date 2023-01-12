@@ -39,3 +39,10 @@ export const patchVote = (type, id, positive) => {
         return axios.patch(`https://lc-portfolio-nc-games.onrender.com/api/comments/${id}`, {inc_votes: increment})
     }
 }
+
+export const postComment = (commentBody, user, reviewId) => {
+    return axios.post(`https://lc-portfolio-nc-games.onrender.com/api/reviews/${reviewId}/comments`, {'username': user, 'body': commentBody})
+    .then(({data}) => {
+        return data.comment
+    })
+}
