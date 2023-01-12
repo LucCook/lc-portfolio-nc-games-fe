@@ -13,16 +13,36 @@ function Reviews() {
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
-  const [voteError, setVoteError] = useState(false)
-  const [queries, setQueries] = useSearchParams()
-  const [sort, setSort] = useState('created_at')
-  const [order, setOrder] = useState('desc')
+  const [voteError, setVoteError] = useState(false);
+  const [queries, setQueries] = useSearchParams();
+  const [sort, setSort] = useState("created_at");
+  const [order, setOrder] = useState("desc");
 
-  const sortOptions = [{label: 'created_at'}, {label: 'comment_count'}, {label: 'votes'}]
-  const category = queries.get('category')
+  const sortOptions = [
+    { label: "created_at" },
+    { label: "comment_count" },
+    { label: "votes" },
+  ];
+  
+  const sortLabel = (string) => {
+    switch (string) {
+      case 'created_at':
+        return 'date posted'
+        break;
+      case 'comment_count':
+        return 'number of comments'
+        break;
+      case 'votes':
+        return 'number of votes'
+      default:
+        break;
+    }
+  }
+
+  const category = queries.get("category");
 
   useEffect(() => {
-    setError(false)
+    setError(false);
     fetchReviews(limit, page, category, sort, order)
       .then((reviews) => {
         setLoading(false);
@@ -35,18 +55,15 @@ function Reviews() {
       });
   }, [limit, page, category, sort, order]);
 
- 
-
   if (loading)
     return (
       <main>
         <div className="reviews-nav">
-        <DropdownSort display="reviews-drop" label={`sorting by: ${sort}`} order={order} items={sortOptions} itemLabel='label'/>
           {page > 1 && (
             <div
               className="nav-button"
               onClick={() => {
-                setLoading(true)
+                setLoading(true);
                 if (page > 1) setPage(page - 1);
               }}
             >
@@ -58,7 +75,7 @@ function Reviews() {
             <div
               className="nav-button"
               onClick={() => {
-                setLoading(true)
+                setLoading(true);
                 setPage(page + 1);
               }}
             >
@@ -67,15 +84,31 @@ function Reviews() {
           )}
         </div>
         <div className="all-reviews-container">
-
-        <div className="user-message">Loading...</div>
+        <div className="drop-container">
+          <DropdownSort
+            display="reviews-drop"
+            label={`sorting by: ${sort}`}
+            items={sortOptions}
+            itemLabel="label"
+            setSort={setSort}
+          />
+          <button
+            className="order-btn"
+            onClick={() => {
+              setOrder(order === "desc" ? "asc" : "desc");
+            }}
+          >
+            order: {order}
+          </button>
+        </div>
+          <div className="user-message">Loading...</div>
         </div>
         <div className="reviews-nav">
           {page > 1 && (
             <div
               className="nav-button"
               onClick={() => {
-                setLoading(true)
+                setLoading(true);
                 if (page > 1) setPage(page - 1);
               }}
             >
@@ -86,7 +119,7 @@ function Reviews() {
             <div
               className="nav-button"
               onClick={() => {
-                setLoading(true)
+                setLoading(true);
                 setPage(page + 1);
               }}
             >
@@ -107,15 +140,11 @@ function Reviews() {
   return (
     <main>
       <div className="reviews-nav">
-        <div className="drop-container">
-        <DropdownSort display="reviews-drop" label={`sorting by: ${sort}`} items={sortOptions} itemLabel='label' setSort={setSort}/>
-        <button className="order-btn" onClick={() => {setOrder(order === 'desc' ? 'asc' : 'desc')}}>order: {order}</button>
-        </div>
         {page > 1 && (
           <div
             className="nav-button"
             onClick={() => {
-                setLoading(true)
+              setLoading(true);
               if (page > 1) setPage(page - 1);
             }}
           >
@@ -127,7 +156,7 @@ function Reviews() {
           <div
             className="nav-button"
             onClick={() => {
-                setLoading(true)
+              setLoading(true);
               setPage(page + 1);
             }}
           >
@@ -136,17 +165,51 @@ function Reviews() {
         )}
       </div>
       <div className="all-reviews-container">
-      {voteError && <div className="error-message">Oh dear, something went wrong, please try again later or contact support</div>}
+        <div className="drop-container">
+          <DropdownSort
+            display="reviews-drop"
+            label={`sorting by: ${sortLabel(sort)}`}
+            items={sortOptions}
+            itemLabel="label"
+            formatItemLabel={sortLabel}
+            setSort={setSort}
+          />
+          <button
+            className="order-btn"
+            onClick={() => {
+              setOrder(order === "desc" ? "asc" : "desc");
+            }}
+          >
+            {order === "desc" ? "⬇" : "⬆"}
+          </button>
+        </div>
+        {voteError && (
+          <div className="error-message">
+            Oh dear, something went wrong, please try again later or contact
+            support
+          </div>
+        )}
         {reviews.length === 0 && (
           <div className="user-message">No reviews :(</div>
         )}
         {reviews.map((review, index, array) => {
           if (index === array.length - 1) {
             return (
-              <ReviewCard key={review.review_id} {...review} last={true} setVoteError={setVoteError} />
+              <ReviewCard
+                key={review.review_id}
+                {...review}
+                last={true}
+                setVoteError={setVoteError}
+              />
             );
           }
-          return <ReviewCard key={review.review_id} {...review} setVoteError={setVoteError}/>;
+          return (
+            <ReviewCard
+              key={review.review_id}
+              {...review}
+              setVoteError={setVoteError}
+            />
+          );
         })}
       </div>
       <div className="reviews-nav">
@@ -154,7 +217,7 @@ function Reviews() {
           <div
             className="nav-button"
             onClick={() => {
-                setLoading(true)
+              setLoading(true);
               if (page > 1) setPage(page - 1);
             }}
           >
@@ -165,7 +228,7 @@ function Reviews() {
           <div
             className="nav-button"
             onClick={() => {
-                setLoading(true)
+              setLoading(true);
               setPage(page + 1);
             }}
           >
