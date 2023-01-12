@@ -193,7 +193,7 @@ function SingleReview({ user }) {
         />
 
         <div className="review-body">{review.review_body}</div>
-        {review.comment_count > 0 && (
+        {commentCount > 0 && (
           <button
             className="comments-button active"
             onClick={() => {
@@ -206,7 +206,7 @@ function SingleReview({ user }) {
             {commentsVisible === true && <div>Hide comments</div>}
           </button>
         )}
-        {review.comment_count === 0 && (
+        {commentCount === 0 && (
           <div className="comments-button">No comments to display</div>
         )}
         <CommentAdd reviewId={review_id} user={user} setComments={setComments} setCommentCount={setCommentCount}/>
