@@ -13,20 +13,12 @@
 }
 
 .dropbtn.reviews-drop {
+    max-height: 100%;
     background-color: #f5f4f5;
     color: #383035;
     border: 1px solid #383035;
     border-radius: 5px;
-}
-
-.order-btn {
-    height: 50px;
-    background-color: #f5f4f5;
-    color: #383035;
-    border: 1px solid #383035;
-    border-radius: 5px;
-    padding: 0 10px;
-    cursor: pointer;
+    padding: 0;
 }
 
 .dropdown {
@@ -35,20 +27,12 @@
     display: inline-block;
 }
 
-.drop-container {
-    position: absolute;
-    left: 0;
-    top: 105px;
-    display: flex;
-    align-items: center;
-}
-
-/* .dropdown.reviews-drop {
+.dropdown.reviews-drop {
     position: absolute;
     left: 0;
     top: 105px;
     display: inline-block;
-} */
+}
 
 .dropdown-content {
     display: block;
@@ -89,4 +73,3 @@
 .dropdown:hover .dropbtn.dropbtn.nav-drop {
     background-color: #997a65;
 }
-

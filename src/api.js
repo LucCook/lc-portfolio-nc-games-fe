@@ -1,15 +1,16 @@
 import axios from 'axios'
 
-export const fetchReviews = (limit, page, category) => {
+export const fetchReviews = (limit, page, category, sort, order) => {
     let reqString = `https://lc-portfolio-nc-games.onrender.com/api/reviews?limit=${limit}&p=${page}`
 
     if (category) reqString += `&category=${category}`
 
-    return fetch(reqString)
-    .then((res) => {
-        return res.json()
-    })
-    .then((data) => {
+    if (sort) reqString += `&sort_by=${sort}`
+
+    if (order) reqString += `&order=${order}`
+
+    return axios.get(reqString)
+    .then(({data}) => {
         return data.reviews
     })
 }

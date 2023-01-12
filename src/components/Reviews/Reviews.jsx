@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { fetchReviews } from "../../api";
 import ReviewCard from "../ReviewCard/ReviewCard";
+import DropdownSort from "../DropdownSort/DropdownSort";
 
 import "./Reviews.css";
 
@@ -14,11 +15,15 @@ function Reviews() {
   const [limit, setLimit] = useState(5);
   const [voteError, setVoteError] = useState(false)
   const [queries, setQueries] = useSearchParams()
+  const [sort, setSort] = useState('created_at')
+  const [order, setOrder] = useState('desc')
 
-  const categoryQuery = queries.get('category')
+  const sortOptions = [{label: 'created_at'}, {label: 'comment_count'}, {label: 'votes'}]
+  const category = queries.get('category')
 
   useEffect(() => {
-    fetchReviews(limit, page, categoryQuery)
+    setError(false)
+    fetchReviews(limit, page, category, sort, order)
       .then((reviews) => {
         setLoading(false);
         setReviews(reviews);
@@ -28,12 +33,15 @@ function Reviews() {
         setError(true);
         console.log(err);
       });
-  }, [limit, page, categoryQuery]);
+  }, [limit, page, category, sort, order]);
+
+ 
 
   if (loading)
     return (
       <main>
         <div className="reviews-nav">
+        <DropdownSort display="reviews-drop" label={`sorting by: ${sort}`} order={order} items={sortOptions} itemLabel='label'/>
           {page > 1 && (
             <div
               className="nav-button"
@@ -99,6 +107,10 @@ function Reviews() {
   return (
     <main>
       <div className="reviews-nav">
+        <div className="drop-container">
+        <DropdownSort display="reviews-drop" label={`sorting by: ${sort}`} items={sortOptions} itemLabel='label' setSort={setSort}/>
+        <button className="order-btn" onClick={() => {setOrder(order === 'desc' ? 'asc' : 'desc')}}>order: {order}</button>
+        </div>
         {page > 1 && (
           <div
             className="nav-button"

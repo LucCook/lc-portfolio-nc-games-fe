@@ -19,7 +19,7 @@ function Nav() {
 
   return (
     <nav>
-      <Dropdown className="nav-item" label="Categories" items={categories} itemLabel="slug"/>
+      <Dropdown className="nav-item" label="Categories" items={categories} itemLabel="slug" display="nav-drop"/>
       
       <div className="nav-item">Users</div>
       
