@@ -1,7 +1,5 @@
 .dropbtn {
-    background-color: #be936c;
-    color: #f5f4f5;
-    height: 50px;
+    height: 100%;
     font-size: 1em;
     width: 100%;
     border: none;
@@ -9,23 +7,72 @@
     min-width: 90px;
 }
 
+.dropbtn.nav-drop {
+    background-color: #be936c;
+    color: #f5f4f5;
+}
+
+.dropbtn.reviews-drop {
+    background-color: #f5f4f5;
+    color: #383035;
+    height: 100%;
+    border: 0px solid black;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown:hover .dropbtn.reviews-drop {
+    background-color: #383035;
+    color: #f5f4f5;
+}
+
+.order-btn {
+    width: 30%;
+    height: 40px;
+    background-color: #f5f4f5;
+    color: #383035;
+    cursor: pointer;
+    border: none;
+    border-left: 1px solid #383035;
+    font-size: 2em;
+}
+
+.order-btn:hover {
+    background-color: #383035;
+    color: #f5f4f5;
+}
+
 .dropdown {
     height: 100%;
     position: relative;
     display: inline-block;
-    
+}
+
+.drop-container {
+    height: 40px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 100%;
+    border: 2px solid #383035;
+    border-radius: 3px;
+}
+
+.dropdown.reviews-drop {
+    width: 70%;
+    display: inline-block;
 }
 
 .dropdown-content {
     display: block;
     position: absolute;
-    top: 50px;
+    top: 100%;
     background-color: #f5f4f5;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     min-width: 90px;
-    width: 100%;
-    
+    width: 100%; 
 }
 
 .dropdown-item {
@@ -34,6 +81,7 @@
     color: #383035;
     width: 100%;
     cursor: pointer;
+    margin: 5px 0;
 }
 
 .dropdown-item:hover {
@@ -53,6 +101,7 @@
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
+.dropdown:hover .dropbtn.nav-drop {
     background-color: #997a65;
 }
+
