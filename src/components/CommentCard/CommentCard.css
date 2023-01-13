@@ -3,6 +3,7 @@
     margin-bottom: 10px;
     border: 1px solid #b5b0a9;
     border-radius: 5px;
+    
 }
 
 .comment-details {
@@ -10,22 +11,45 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-evenly;
+    width: 100%
 }
 
 .comment-author {
     font-weight: bold;
+    margin: 5px 0
 }
 
 .comment-body {
     text-align: left;
+    width: 90%;
+    margin: 5px 0;
 }
 
 .comment-date {
     font-size: 0.9em
 }
 
-.comment-delete {
+.comment-delete, .comment-edit
+{
+    text-align: left;
     font-size: 0.8em;
     text-decoration: underline;
     cursor: pointer;
+    margin: 5px 0;
+}
+
+.text-editor {
+    font-family: inherit;
+    font-size: inherit;
+    width: 100%;
+    height: auto;
+    resize: none;
+}
+
+.edited-tag {
+    font-size: 0.9em;
+    
+    font-style: italic;
+    font-weight: bolder;
+    text-decoration: none;
 }

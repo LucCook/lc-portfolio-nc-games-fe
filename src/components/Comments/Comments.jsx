@@ -21,7 +21,7 @@ function Comments({review_id, comments, setComments}) {
     return (<div className="comments-container">
             {voteError && <div className="error-message">Oh dear, something went wrong, please try again later or contact support</div>}
                 {comments.map((comment) => {
-                    return <CommentCard key={comment.comment_id} {...comment} setVoteError={setVoteError}/>
+                    return <CommentCard key={comment.comment_id} {...comment} setVoteError={setVoteError} setComments={setComments}/>
                 })}
             </div>)
 }

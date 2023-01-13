@@ -4,7 +4,7 @@ import { fetchCategories } from '../Nav/navapi';
 import './Nav.css'
 import { Link } from 'react-router-dom';
 
-function Nav() {
+function Nav({setLoadingNav}) {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,6 +12,7 @@ function Nav() {
   useEffect(() => {
     fetchCategories().then((categoriesArr) => {
       setLoading(false)
+      setLoadingNav(false)
       setCategories(categoriesArr);
     })
   }, []);
@@ -23,9 +24,9 @@ function Nav() {
       
       <Link to="/reviews"><div className="nav-item">Recent Reviews</div></Link>
 
-      <div className="nav-item">Users</div>
+      <Link to="/users"><div className="nav-item">Users</div></Link>
       
-      <div className="nav-item">Sign in</div>
+      <Link to="/post-review"><div className="nav-item">Post Review</div></Link>
            
 
       <Dropdown className="nav-item" label="Categories" items={categories} itemLabel="slug" display="nav-drop"/>

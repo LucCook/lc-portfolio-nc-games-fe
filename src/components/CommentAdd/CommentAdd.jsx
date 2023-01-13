@@ -56,7 +56,7 @@ function CommentAdd({reviewId, setComments, setCommentCount, setCommentsVisible}
       {commentInvalid && (<div className="error-message">You need to write a comment before posting!</div>)}
       {commentInputVisible && (
         <form className="comment-input" onSubmit={(e) => {handleSubmit(e)}}>
-          <input className="text-input" type="text" placeholder="What do you think?" value={commentBody} onChange={(e) => {
+          <input className="text-input" type="text" placeholder="What do you think?" value={commentBody} autoFocus onChange={(e) => {
             setCommentInvalid(false)
             setCommentBody(e.target.value)
             }}/>

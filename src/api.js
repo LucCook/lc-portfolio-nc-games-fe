@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const fetchReviews = (limit, page, category, sort, order) => {
+export const fetchReviews = (limit, page, category, sort, order, owner) => {
     let reqString = `https://lc-portfolio-nc-games.onrender.com/api/reviews?limit=${limit}&p=${page}`
 
     if (category) reqString += `&category=${category}`
@@ -8,6 +8,8 @@ export const fetchReviews = (limit, page, category, sort, order) => {
     if (sort) reqString += `&sort_by=${sort}`
 
     if (order) reqString += `&order=${order}`
+
+    if (owner) reqString += `&owner=${owner}`
 
     return axios.get(reqString)
     .then(({data}) => {
@@ -54,4 +56,32 @@ export const postComment = (commentBody, user, reviewId) => {
 
 export const deleteComment =(comment_id) => {
     return axios.delete(`https://lc-portfolio-nc-games.onrender.com/api/comments/${comment_id}`)
+}
+
+export const editComment = (comment_id, editedBody) => {
+    return axios.patch(`https://lc-portfolio-nc-games.onrender.com/api/comments/${comment_id}`, {body: editedBody})
+    .then(({data}) => {
+        return data.comment
+    })
+}
+
+export const fetchUsers = () => {
+    return axios.get(`https://lc-portfolio-nc-games.onrender.com/api/users`)
+    .then(({data}) => {
+        return data.users
+    })
+}
+
+export const postReview = (user, reviewTitle, reviewBody, gameDesigner, imgSrc, category) => {
+    const newReview ={
+        title: reviewTitle,
+        designer: gameDesigner,
+        owner: user,
+        review_img_url: imgSrc,
+        review_body: reviewBody,
+        category: category
+    }
+    return axios.post(`https://lc-portfolio-nc-games.onrender.com/api/reviews`, newReview).then((res) => {
+        console.log(res)
+    })
 }

@@ -4,4 +4,6 @@ function formatDate(dateString) {
     return fullDateString.slice(fullDateString.indexOf(" "));
 }
 
+export const awaitTimeout = delay => new Promise(resolve => setTimeout(resolve, delay))
+
 export default formatDate

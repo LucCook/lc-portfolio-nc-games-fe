@@ -8,7 +8,7 @@ import Comments from "../Comments/Comments";
 import CommentAdd from "../CommentAdd/CommentAdd";
 import arrow from "../../arrow3.png";
 
-function SingleReview() {
+function SingleReview({setLoadingMain}) {
   const { review_id } = useParams();
   const [review, setReview] = useState({});
   const [loading, setLoading] = useState(true);
@@ -66,6 +66,7 @@ function SingleReview() {
       })
       .then(() => {
         setLoading(false);
+        setLoadingMain(false)
       })
       .catch((err) => {
         setLoading(false);

@@ -1,0 +1,21 @@
+.users-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    background-color: #f5f4f5;
+    margin: 20px;
+    border: 2px solid #383035;
+    border-radius: 10px;
+}
+
+.user-card {
+    margin: 25px;
+}
+
+.avatar-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border: 5px solid #383035;
+    border-radius: 50%;
+}

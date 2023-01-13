@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { unstable_HistoryRouter, useSearchParams } from "react-router-dom";
 
 import { fetchReviews } from "../../api";
 import ReviewCard from "../ReviewCard/ReviewCard";
@@ -7,7 +7,7 @@ import DropdownSort from "../DropdownSort/DropdownSort";
 
 import "./Reviews.css";
 
-function Reviews() {
+function Reviews({setLoadingMain}) {
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(false);
@@ -28,10 +28,8 @@ function Reviews() {
     switch (string) {
       case 'created_at':
         return 'date posted'
-        break;
       case 'comment_count':
         return 'number of comments'
-        break;
       case 'votes':
         return 'number of votes'
       default:
@@ -40,12 +38,18 @@ function Reviews() {
   }
 
   const category = queries.get("category");
+  const owner = queries.get("owner")
+
+  useEffect(() => {
+    setPage(1)
+  }, [category, owner])
 
   useEffect(() => {
     setError(false);
-    fetchReviews(limit, page, category, sort, order)
+    fetchReviews(limit, page, category, sort, order, owner)
       .then((reviews) => {
         setLoading(false);
+        setLoadingMain(false)
         setReviews(reviews);
       })
       .catch((err) => {
@@ -53,7 +57,7 @@ function Reviews() {
         setError(true);
         console.log(err);
       });
-  }, [limit, page, category, sort, order]);
+  }, [limit, page, category, sort, order, owner]);
 
   if (loading)
     return (
@@ -98,7 +102,7 @@ function Reviews() {
               setOrder(order === "desc" ? "asc" : "desc");
             }}
           >
-            order: {order}
+            {order === "desc" ? "⬇" : "⬆"}
           </button>
         </div>
           <div className="user-message">Loading...</div>
